@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<head>
+
+     <title>Question 1 </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  margin: 0;
+  padding: 0
+  float:left ;
+    min-width:1600px;        
+   width: auto !important;  
+   width:1600px;
+}
+
+.header {
+
+  background-color: white;
+  padding: 0px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.toplink ul {
+  list-style-type: none;
+  margin: 0;
+  overflow: hidden;
+  background-color: orange;
+  
+
+
+}
+
+.toplink li {
+  float: left;
+}
+.toplink li a:hover {
+  background-color: brown;
+}
+
+.toplink a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px
+}
+.active {
+  background-color: brown;
+}
+
+.introduction {
+  float: left;
+  padding: 20px;
+  background-color: white;
+  height: 300px;
+  width:  600px ;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.column {
+  float: left;
+  width: 30%;
+  padding: 18px;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+footer {
+   background-color: orange;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+
+}
+</style>
+</head>  
+
+
+<body >
+
+<div class="container"> 
+<div class="header">
+    <center><h1>Q1:What are the most popular Developer jobs?</h1></center>
+   
+</div>
+
+<div class="toplink">
+    <center>
+        <p>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a class="active" href="./chart1.html">Question1</a></li>
+                <li><a href="./chart2.html">Question2</a></li>
+                <li><a href="./chart3.html">Question3</a></li>
+            </ul>
+        </p>
+
+    </center>
+</div>
+
+
+
+ <svg width="600" height="600">
+    <g id="wrapper" transform="translate(40, 20)">
+    </g>
+  </svg>
+<script>
+
+//1.import data
+var myData = [
+  
+{DevType:'Back-end developer',Total:57.87},
+{DevType:'Full-stack developer',Total:8.02},
+{DevType:'Front-end developer',Total:5.9},
+{DevType:'Mobile developer',Total:4.29},
+{DevType:'Student',Total:3.58},
+{DevType:'Desktop or enterprise applications developer',Total:3.15},
+{DevType:'Designer',Total:2.92},
+{DevType:'Data or business analyst',Total:2.79},
+{DevType:'Data scientist or machine learning specialist',Total:2.4},
+{DevType:'DevOps specialist',Total:1.37},
+{DevType:'Database administrator',Total:1.33},
+{DevType:'C-suite executive (CEO, CTO, etc.)',Total:1.30},
+{DevType:'Embedded applications or devices developer',Total:1.29},
+{DevType:'Engineering manager',Total:0.99},
+{DevType:'Educator or academic researcher',Total:0.86},
+{DevType:'QA or test developer',Total:0.68},
+{DevType:'Game or graphics developer',Total:0.63},
+{DevType:'System administrator',Total:0.33},
+{DevType:'Product manager',Total:0.2},
+{DevType:'Marketing or sales professional',Total:0.1},
+
+
+];
+//2.set up var
+
+var margin = {top:50,right:25,bottom:5,left:300},
+    width = 1000-margin.left-margin.right,
+    height = 490-margin.top-margin.bottom;
+
+var svg=d3.select("body").selectAll("svg")
+          .attr("width",width+margin.left + margin.right)
+          .attr("height",height+margin.left + margin.right)
+          .append("g")
+          .attr("transform","translate("+(margin.left)+","+margin.top+")");
+
+//3.set up x y scales
+
+var 
+x = d3.scaleLinear().domain([0,60]).range([0,width]);
+y= d3.scaleBand()
+  .domain(['Back-end developer',
+'Full-stack developer',
+'Front-end developer',
+'Mobile developer',
+'Student',
+'Desktop or enterprise applications developer',
+'Designer',
+'Data or business analyst',
+'Data scientist or machine learning specialist',
+'DevOps specialist',
+'Database administrator',
+'C-suite executive (CEO, CTO, etc.)',
+'Embedded applications or devices developer',
+'Engineering manager',
+'Educator or academic researcher',
+'QA or test developer',
+'Game or graphics developer',
+'System administrator',
+'Product manager',
+'Marketing or sales professional'])
+  .range([0,height])
+  .paddingInner(0.1);
+
+ycolor= d3.scaleOrdinal()
+
+.domain(myData)
+
+.range(["#FF9C34","#F36283", "TURQUOISE", "#F95B34",  "#EBDE52", "#B7D84B", "#44ACCF","yellowgreen","PLUM","MEDIUMPURPLE"])
+
+
+
+//4.set up x y axis
+var xAxis = d3.axisBottom(x);
+var yAxis = d3.axisLeft(y);
+
+//5.add axes
+
+var gx=svg.append("g")
+       .attr("transform","translate(0,"+height+")")
+       .style("font", "17px times")
+       .call(xAxis)
+      .append("text")
+       .attr('x',width)
+       .attr("y",-5)
+       .attr("fill","black")
+       .style("text-anchor","end")
+       .text("count%")
+
+
+
+
+var gy=svg.append("g")
+.style("font", "15px times").call(yAxis)
+     .append("text")
+       .attr('x',6)
+       .attr("y",-3)
+       .attr("fill","black")
+       .style("text-anchor","end")
+       .style("font", "17px times")
+       .text("Job title")
+
+
+
+d3.select("body").selectAll("svg")
+  .attr("width",width+margin.left + margin.right)
+  .attr("height",height+margin.left + margin.right)
+  .append("g")
+  .attr("transform","translate("+(margin.left)+","+margin.top+")")
+
+  .selectAll("g")
+  .data(myData)
+  .enter()
+  .append('rect')
+  .attr("class","bar")
+  .attr('x',0  )
+  .attr('y', function(d) {
+    return y(d.DevType);
+  })
+  .attr('height', y.bandwidth())
+  .attr('width', function(d) {
+    return x(d.Total);
+  })
+  .attr('fill',function(d,i) {return ycolor(d.DevType);})
+  .attr("id", function(d, i) { return i;})
+  .on("mouseover", 
+  function(d) { d3.select(this)
+  .attr("fill", "red"); })
+  .on("mouseout", function(d, i) { d3.select(this)
+  .attr("fill", function(d) { return "" + ycolor(this.id) + "";});
+  });
+   
+
+
+
+svg.append("g")
+  .selectAll("g")
+  .data(myData)
+  .enter()
+  .append('text')
+  .attr("class","bar")
+  .attr('x',function(d) {return x(d.Total)} )
+  .attr('y', function(d) {
+    return y(d.DevType);
+  })
+  .text(function(d){ return (d.Total+"%");})
+.attr("fill","black")
+.attr("font-size","15px")
+.attr("dy", ".96em") .attr("dx", "3.2em")//vertical align middle
+.attr("text-anchor", "end")
+
+
+</script>
+
+
+<div class="introduction">
+
+    <h2>Summary</h2>
+   
+<li>Approx. 57.87 % peoples called themselves Back-end developers.</li>
+<li>Approx. 8.02 % peoples called themselves Full-stack developers.</li>
+<li>Approx. 5.9 % peoples called themselves Front-end developers.</li>
+<li>Approx. 4.29 % peoples called themselves Mobile developer.</li>
+<li>Approx. 3.58 % peoples called themselves Studen.</li>
+<li>Approx. 2.92 % peoples called themselves Designer.</li>
+<li>Approx. 2.79 % peoples called themselves Data/business analyst.</li>
+<li>Approx. 2.4 % peoples called themselves Data scientst/machine learning specialist.</li>
+<li>Approx. 1.37 % peoples called themselves DevOps specialist.</li>
+<li>Approx. 1.33 % peoples called themselves Database admistrator.</li>
+<li>Other.</li>
+
+<p> From summary above we find more than half of people called themselves back-end devlopers, following by full-stack developer and front-end deveoper. 
+</p>
+
+</div>
+
+</body>
+
+
+
+<footer>
+  <p>Page 1</p>
+</footer>
+</div>
+</html>
+
+
+

@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<head>
+
+     <title>Question2 </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  margin: 0;
+   padding: 0
+  float:left ;
+    min-width:1600px;        
+   width: auto !important;  
+   width:1600px;
+}
+
+.header {
+
+  background-color: white;
+  padding: 0px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.toplink ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: orange;
+}
+
+.toplink li {
+  float: left;
+}
+.toplink li a:hover {
+  background-color: brown;
+}
+
+.toplink a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px
+}
+.active {
+  background-color: brown;
+}
+
+.introduction {
+  float: left;
+  padding: 20px;
+  background-color: white;
+  height: 300px;
+  width:  600px ;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.column {
+  float: left;
+  width: 30%;
+  padding: 18px;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+footer {
+  background-color: orange;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+
+
+}
+</style>
+</head>  
+
+
+
+<body >
+
+<div class="header">
+    <center><h1>Q2:What are major field of study of Developers?</h1></center>
+   
+</div>
+
+<div class="toplink">
+    <center>
+        <p>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./chart1.html">Question1</a></li>
+                <li><a class="active" href="./chart2.html">Question2</a></li>
+                <li><a href="./chart3.html">Question3</a></li>
+            </ul>
+        </p>
+
+    </center>
+</div>
+
+
+
+ <svg width="600" height="600">
+    <g id="wrapper" transform="translate(40, 20)">
+    </g>
+  </svg>
+<script>
+
+
+//1.import data
+var myData = [
+  
+{DevType:'Moderately satisfied',Total:37.56},
+{DevType:'Extremely satisfied',Total:17.92},
+{DevType:'Slightly satisfied',Total:14.47},
+{DevType:'Slightly dissatisfied',Total:10.18},
+{DevType:'Moderately dissatisfied',Total:9.11},
+{DevType:'Neither satisfied nor dissatisfied',Total:7.18},
+{DevType:'Extremely dissatisfied',Total:3.58},
+
+
+
+];
+//2.set up var
+
+var margin = {top:50,right:55,bottom:5,left:250},
+    width = 1000-margin.left-margin.right,
+    height = 300-margin.top-margin.bottom;
+
+var svg=d3.select("body").selectAll("svg")
+          .attr("width",width+margin.left + margin.right)
+          .attr("height",height+margin.left + margin.right)
+          .append("g")
+          .attr("transform","translate("+(margin.left)+","+margin.top+")");
+
+//3.set up x y scales
+
+var 
+x = d3.scaleLinear().domain([0,40]).range([0,width]);
+y= d3.scaleBand()
+  .domain(['Moderately satisfied',
+'Extremely satisfied',
+'Slightly satisfied',
+'Slightly dissatisfied',
+'Moderately dissatisfied',
+'Neither satisfied nor dissatisfied',
+'Extremely dissatisfied',
+])
+  .range([0,height])
+  .paddingInner(0.1);
+
+ycolor= d3.scaleOrdinal()
+
+.domain(myData)
+
+.range(["#FF9C34","#F36283", "TURQUOISE", "#F95B34",  "#EBDE52", "#B7D84B", "#44ACCF"])
+
+
+
+//4.set up x y axis
+var xAxis = d3.axisBottom(x);
+var yAxis = d3.axisLeft(y);
+
+//5.add axes
+
+var gx=svg.append("g")
+       .attr("transform","translate(0,"+height+")")
+       .style("font", "17px times")
+       .call(xAxis)
+       .append("text")
+       .attr('x',width)
+       .attr("y",-5)
+       .attr("fill","black")
+       .style("text-anchor","end")
+       .text("Value%")
+
+
+
+
+var gy=svg.append("g")
+       .style("font", "17px times")
+       .call(yAxis)
+       .append("text")
+       .attr('x',6)
+       .attr("y",-3)
+       .attr("fill","black")
+       .text("Job Satisfaction")
+
+
+
+d3.select("body").selectAll("svg")
+  .attr("width",width+margin.left + margin.right)
+  .attr("height",height+margin.left + margin.right)
+  .append("g")
+  .attr("transform","translate("+(margin.left)+","+margin.top+")")
+
+  .selectAll("g")
+  .data(myData)
+  .enter()
+  .append('rect')
+  .attr("class","bar")
+  .attr('x',0  )
+  .attr('y', function(d) {
+    return y(d.DevType);
+  })
+  .attr('height', y.bandwidth())
+  .attr('width', function(d) {
+    return x(d.Total);
+  })
+  .attr('fill',function(d,i) {return ycolor(d.DevType);})
+  .attr("id", function(d, i) { return i;})
+  .on("mouseover", 
+  function(d) { d3.select(this)
+  .attr("fill", "red"); })
+  .on("mouseout", function(d, i) { d3.select(this)
+  .attr("fill", function(d) { return "" + ycolor(this.id) + "";});
+  });
+   
+
+
+
+svg.append("g")
+  .selectAll("g")
+  .data(myData)
+  .enter()
+  .append('text')
+  .attr("class","bar")
+  .attr('x',function(d) {return x(d.Total)} )
+  .attr('y', function(d) {
+    return y(d.DevType);
+  })
+  .text(function(d){ return (d.Total+"%");})
+.attr("fill","black")
+.attr("font-size","15px")
+.attr("dy", ".96em") .attr("dx", "3.2em")//vertical align middle
+.attr("text-anchor", "end")
+
+
+
+</script>
+
+
+<div class="introduction">
+    <h2>Summary</h2>
+   
+<li>37.56 % peoples are Moderately satisfied</li>
+<li>17.92 % peoples are Extremely satisfied</li>
+<li>14.47 % peoples are Slightly satisfied</li>
+<li>10.18 % peoples are Slightly dissatisfied</li>
+<li>9.11 % peoples are Moderately disatisfied</li>
+<li>7.18 % peoples are Neither satisfied nor dissatisfied</li>
+<li>3.58 % peoples are Extremely dissatisfied</li>
+
+<p> From summary above we find more than half of developers are at least slightly satisfied with their current job.
+</p>
+
+</div>
+
+</body>
+
+
+
+<footer>
+  <p>Page 2</p>
+</footer>
+</html>
+
+
+

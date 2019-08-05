@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>My report </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  float:left ;
+    min-width:1600px;        
+   width: auto !important;  
+   width:1600px;
+}
+
+.header {
+
+  background-color: white;
+  padding: 0px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.toplink ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: orange;
+
+}
+
+.toplink li {
+  float: left;
+}
+.toplink li a:hover {
+  background-color: brown;
+}
+
+.toplink a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px
+}
+.active {
+  background-color: brown;
+}
+
+.introduction {
+  float: left;
+  padding: 20px;
+  background-color: white;
+  height: 300px;
+  width:  600px ;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.column {
+  float: left;
+  width: 30%;
+  padding: 18px;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+footer {
+  
+    background-color: orange;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+
+}
+</style>
+</head>
+<body a link = "black" vlink = "white">
+<div class="container"> 
+<div class="header">
+    <center><h1>Exploratory Data Analysis on Stack Overflow Developer Survey 2018</h1></center>
+    <center><h2>CS498 Data Visualization</h2></center>
+    <center><h2>by Yinan Hu</h2></center>
+</div>
+<div class="toplink">
+    <center>
+        <p>
+            <ul>
+                <li><a class="active" href="#home">Home</a></li>
+                <li><a href="./chart1.html">Question1</a></li>
+                <li><a href="./chart2.html">Question2</a></li>
+                <li><a href="./chart3.html">Question3</a></li>
+            </ul>
+        </p>
+
+    </center>
+</div>
+
+<div class="introduction">
+
+    <h2>Introduction</h2>
+    <p>
+       This project is an exploratory data analysis based on the Stack Overflow Developer Suvery 2018 conducted by Stack Overflow. 
+       Stack Overflow is a privately held website, the flagship site of the Stack Exchange Network created in 2008 by Jeff Atwood and Joel Spolsky. 
+    </p>
+    <p>
+       Each year, Stack Overflow asked the developer community about everything from their favorite technologies to their job preferences. There are 98,855 responses in this public data release.Those responses are  considered “qualified” for analytical purposes based on completion and time spent on the survey and included at least one non-PII question. 
+    </p>
+     <p>
+       This project focuses on three topics based on this dataset:
+     </p>
+     <li>Q1:What are the most popular Developer jobs?</li>
+     <li>Q2:What are major field of study of Developers?</li>
+     <li>Q3:Are those tech jobs satisfying?</li>
+       
+
+
+
+</div>
+
+<div class="row">
+  <div class="column">
+    <h2>Q1:What are the most popular Developer jobs?</h2>
+    <p>In the past ten years, there's a huge growing in tech job market. What are the most popular tech job? What is the job market trend? </p>
+     <p>   We can get some hints from this survey answered by people who had jobs related to technology. The subset of data we are going to analyze is description of people who participated in survey.     
+    </p>
+  </div>
+ <div class="column">
+  <img src="pic1.jpg" alt="crazy programmer" width="320" height="280">
+  </div>
+<div class="column">
+    <h2>Q2:What are major field of study of Developers?</h2>
+    <p>
+     We want to know which majors in undergraduate can help people get developer jobs. The subset of data is major field of study in undergraduate school.    
+    </p>
+  </div>
+  <div class="column">
+    <h2>Q3:Are those tech jobs satisfying?</h2>
+    <p>It sounds cool to have a tech job and get well paid, which are the most attractive part to pepole nowadays. But we want to get to know a little bit more about whether the people who took the survey were satisfied with their current job. 
+
+    </p>
+  </div>
+
+  
+
+</div>
+
+
+
+<footer>
+  <p>Home page</p>
+</footer>
+</div>
+</body>
+
+</html>
