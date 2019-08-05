@@ -121,36 +121,32 @@ footer {
 </div>
 
 
-
  <svg width="600" height="600">
     <g id="wrapper" transform="translate(40, 20)">
     </g>
   </svg>
 <script>
 
+
+//1.import data
 var myData = [
   
-{DevType:'Computer science, computer engineering, or software engineering',Total:63.69},
-{DevType:'Another engineering discipline (ex. civil, electrical, mechanical)',Total:8.79},
-{DevType:'Information systems, information technology, or system administration',Total:8.23},
-{DevType:'A natural science (ex. biology, chemistry, physics)',Total:3.86},
-{DevType:'Mathematics or statistics',Total:3.57},
-{DevType:'Web development or web design',Total:3.06},
-{DevType:'A business discipline (ex. accounting, finance, marketing)',Total:2.43},
-{DevType:'A humanities discipline (ex. literature, history, philosophy)',Total:2.01},
-{DevType:'A social science (ex. anthropology, psychology, political science)',Total:1.74},
-{DevType:'Fine arts or performing arts (ex. graphic design, music, studio art)',Total:1.44},
-{DevType:'I never declared a major',Total:0.88},
-{DevType:'A health science (ex. nursing, pharmacy, radiology)',Total:0.31},
+{DevType:'Moderately satisfied',Total:37.56},
+{DevType:'Extremely satisfied',Total:17.92},
+{DevType:'Slightly satisfied',Total:14.47},
+{DevType:'Slightly dissatisfied',Total:10.18},
+{DevType:'Moderately dissatisfied',Total:9.11},
+{DevType:'Neither satisfied nor dissatisfied',Total:7.18},
+{DevType:'Extremely dissatisfied',Total:3.58},
 
 
 
 ];
 //2.set up var
 
-var margin = {top:50,right:100,bottom:5,left:500},
+var margin = {top:50,right:55,bottom:5,left:250},
     width = 1000-margin.left-margin.right,
-    height = 390-margin.top-margin.bottom;
+    height = 300-margin.top-margin.bottom;
 
 var svg=d3.select("body").selectAll("svg")
           .attr("width",width+margin.left + margin.right)
@@ -161,20 +157,15 @@ var svg=d3.select("body").selectAll("svg")
 //3.set up x y scales
 
 var 
-x = d3.scaleLinear().domain([0,60]).range([0,width]);
+x = d3.scaleLinear().domain([0,40]).range([0,width]);
 y= d3.scaleBand()
-  .domain(['Computer science, computer engineering, or software engineering',
-'Another engineering discipline (ex. civil, electrical, mechanical)',
-'Information systems, information technology, or system administration',
-'A natural science (ex. biology, chemistry, physics)',
-'Mathematics or statistics',
-'Web development or web design',
-'A business discipline (ex. accounting, finance, marketing)',
-'A humanities discipline (ex. literature, history, philosophy)',
-'A social science (ex. anthropology, psychology, political science)',
-'Fine arts or performing arts (ex. graphic design, music, studio art)',
-'I never declared a major',
-'A health science (ex. nursing, pharmacy, radiology)',
+  .domain(['Moderately satisfied',
+'Extremely satisfied',
+'Slightly satisfied',
+'Slightly dissatisfied',
+'Moderately dissatisfied',
+'Neither satisfied nor dissatisfied',
+'Extremely dissatisfied',
 ])
   .range([0,height])
   .paddingInner(0.1);
@@ -183,7 +174,7 @@ ycolor= d3.scaleOrdinal()
 
 .domain(myData)
 
-.range(["#FF9C34","#F36283", "TURQUOISE", "#F95B34",  "#EBDE52", "#B7D84B"])
+.range(["#FF9C34","#F36283", "TURQUOISE", "#F95B34",  "#EBDE52", "#B7D84B", "#44ACCF"])
 
 
 
@@ -197,7 +188,7 @@ var gx=svg.append("g")
        .attr("transform","translate(0,"+height+")")
        .style("font", "17px times")
        .call(xAxis)
-      .append("text")
+       .append("text")
        .attr('x',width)
        .attr("y",-5)
        .attr("fill","black")
@@ -208,14 +199,13 @@ var gx=svg.append("g")
 
 
 var gy=svg.append("g")
-.style("font", "15px times").call(yAxis)
-     .append("text")
+       .style("font", "17px times")
+       .call(yAxis)
+       .append("text")
        .attr('x',6)
        .attr("y",-3)
        .attr("fill","black")
-       .style("text-anchor","end")
-       .style("font", "17px times")
-       .text("Undergraduate Major")
+       .text("Job Satisfaction")
 
 
 
@@ -268,26 +258,22 @@ svg.append("g")
 
 
 
-
 </script>
 
 
 <div class="introduction">
-
-  <h2>Summary</h2>
+    <h2>Summary</h2>
    
-<li>63.69 % developers have computer science, Computer engineering or Software engineering field of study. </li>
-<li>8.79 % developers have another engineering discpline field of study.</li>
-<li>8.23 % developers have information system,system administration field of study.</li>
-<li>3.86% developers have a natural science field of study.</li>
-<li>3.57 % developers have matchmatcis or statistics field of study.</li>
-<li>3.06 % developers have business discipline field of study.</li>
-<li>2.43 % developers have humanities discipline field of study</li>
-<li>other.</li>
+<li>37.56 % peoples are Moderately satisfied</li>
+<li>17.92 % peoples are Extremely satisfied</li>
+<li>14.47 % peoples are Slightly satisfied</li>
+<li>10.18 % peoples are Slightly dissatisfied</li>
+<li>9.11 % peoples are Moderately disatisfied</li>
+<li>7.18 % peoples are Neither satisfied nor dissatisfied</li>
+<li>3.58 % peoples are Extremely dissatisfied</li>
 
-<p> From summary above we find more than half of developers have a degree in computer science, computer enginnering or software enginnering degree,following by other enginnering discpline degree at 8.79%, then is Information system or technology 3.86%. 
+<p> From summary above we find more than half of developers are at least slightly satisfied with their current job.
 </p>
-
 
 </div>
 
@@ -298,7 +284,6 @@ svg.append("g")
 <footer>
   <p>Page 3</p>
 </footer>
-
 </html>
 
 
